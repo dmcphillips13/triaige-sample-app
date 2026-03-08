@@ -14,6 +14,7 @@ export default function KpiCard({
       style={{
         backgroundColor: "var(--color-bg-card)",
         border: "1px solid var(--color-border)",
+        borderTop: "3px solid var(--color-accent)",
         borderRadius: "var(--radius-lg)",
         padding: "var(--spacing-lg)",
         boxShadow: "var(--shadow-sm)",

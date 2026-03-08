@@ -68,15 +68,22 @@ export default function DataTable({ rows }: { rows: Row[] }) {
               <td style={{ padding: "var(--spacing-md)" }}>
                 <span
                   style={{
-                    display: "inline-block",
-                    padding: "var(--spacing-xs) var(--spacing-sm)",
-                    borderRadius: "var(--radius-full)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "var(--spacing-xs)",
                     fontSize: "var(--font-size-xs)",
-                    fontWeight: 600,
-                    backgroundColor: statusColors[row.status].bg,
+                    fontWeight: 500,
                     color: statusColors[row.status].color,
                   }}
                 >
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      backgroundColor: statusColors[row.status].color,
+                    }}
+                  />
                   {row.status}
                 </span>
               </td>

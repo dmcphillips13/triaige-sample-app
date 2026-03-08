@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # post-failures.sh — Parse Playwright JSON results and POST to Triaige runner
 #
-# Reads the Playwright JSON report, extracts PR context from the most recent
-# merge commit, and sends everything to the Triaige /triage-run endpoint.
+# Reads the Playwright JSON report, embeds screenshot files as base64 into the
+# attachment bodies (Playwright only writes paths, not inline data), extracts
+# PR context from the most recent merge commit, and sends everything to the
+# Triaige /triage-run endpoint.
 #
 # Environment variables:
 #   TRIAIGE_RUNNER_URL  — Runner base URL (e.g. https://triaige-runner.onrender.com)
@@ -28,8 +30,37 @@ fi
 
 echo "Found $UNEXPECTED unexpected test failure(s), posting to Triaige..."
 
+# Embed screenshot files as base64 into attachment bodies.
+# Playwright's JSON reporter only writes file paths, not inline data.
+ENRICHED_FILE="/tmp/results-enriched.json"
+python3 -c "
+import json, base64, os
+
+with open('$RESULTS_FILE') as f:
+    data = json.load(f)
+
+def enrich_attachments(obj):
+    if isinstance(obj, dict):
+        if 'attachments' in obj and isinstance(obj['attachments'], list):
+            for att in obj['attachments']:
+                path = att.get('path', '')
+                content_type = att.get('contentType', '')
+                if path and os.path.isfile(path) and 'image' in content_type and not att.get('body'):
+                    with open(path, 'rb') as img:
+                        att['body'] = base64.b64encode(img.read()).decode()
+        for v in obj.values():
+            enrich_attachments(v)
+    elif isinstance(obj, list):
+        for item in obj:
+            enrich_attachments(item)
+
+enrich_attachments(data)
+
+with open('$ENRICHED_FILE', 'w') as f:
+    json.dump(data, f)
+"
+
 # Extract PR context from the merge commit message
-# Merge commits from GitHub PRs have the format: "Merge pull request #N from ..."
 COMMIT_MSG=$(git log -1 --format="%s" "$GITHUB_SHA" 2>/dev/null || echo "")
 PR_NUMBER=""
 PR_TITLE=""
@@ -69,9 +100,9 @@ PR_CONTEXT=$(jq -n \
     pr_number: (if $pr_number == null then null else ($pr_number | tonumber) end)
   }')
 
-# Build the full payload: raw Playwright JSON + PR context
+# Build the full payload: enriched Playwright JSON + PR context
 PAYLOAD=$(jq -n \
-  --slurpfile report "$RESULTS_FILE" \
+  --slurpfile report "$ENRICHED_FILE" \
   --argjson pr_context "$PR_CONTEXT" \
   '{
     report_json: $report[0],

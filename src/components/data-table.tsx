@@ -24,7 +24,7 @@ export default function DataTable({ rows }: { rows: Row[] }) {
         boxShadow: "var(--shadow-sm)",
       }}
     >
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
         <thead>
           <tr
             style={{

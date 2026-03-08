@@ -28,6 +28,8 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
+                borderLeft: "3px solid var(--color-accent)",
+                paddingLeft: "var(--spacing-sm)",
               }}
             >
               Profile
@@ -51,6 +53,8 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
+                borderLeft: "3px solid var(--color-accent)",
+                paddingLeft: "var(--spacing-sm)",
               }}
             >
               Notifications
@@ -70,6 +74,8 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
+                borderLeft: "3px solid var(--color-accent)",
+                paddingLeft: "var(--spacing-sm)",
               }}
             >
               Bio
@@ -83,15 +89,16 @@ export default function SettingsPage() {
 
           <button
             style={{
-              padding: "var(--spacing-sm) var(--spacing-lg)",
+              padding: "var(--spacing-md) var(--spacing-xl)",
               backgroundColor: "var(--color-accent)",
               color: "white",
               border: "none",
               borderRadius: "var(--radius-md)",
-              fontSize: "var(--font-size-sm)",
+              fontSize: "var(--font-size-base)",
               fontWeight: 600,
               cursor: "pointer",
               alignSelf: "flex-start",
+              boxShadow: "var(--shadow-md)",
             }}
           >
             Save Changes

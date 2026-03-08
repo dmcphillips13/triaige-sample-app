@@ -101,20 +101,22 @@ PR_CONTEXT=$(jq -n \
   }')
 
 # Build the full payload: enriched Playwright JSON + PR context
-PAYLOAD=$(jq -n \
+# Write to file because base64 screenshots make the payload too large for shell args
+PAYLOAD_FILE="/tmp/triaige-payload.json"
+jq -n \
   --slurpfile report "$ENRICHED_FILE" \
   --argjson pr_context "$PR_CONTEXT" \
   '{
     report_json: $report[0],
     pr_context: $pr_context
-  }')
+  }' > "$PAYLOAD_FILE"
 
-# POST to runner
+# POST to runner (use @file to avoid "argument list too long")
 RESPONSE=$(curl -s -w "\n%{http_code}" \
   -X POST "${TRIAIGE_RUNNER_URL}/triage-run" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
-  -d "$PAYLOAD")
+  -d @"$PAYLOAD_FILE")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -1)
 BODY=$(echo "$RESPONSE" | sed '$d')

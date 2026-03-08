@@ -4,7 +4,7 @@
   /* Colors */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8f9fa;
-  --color-bg-sidebar: #1a1a2e;
+  --color-bg-sidebar: #f8fafc;
   --color-bg-header: #ffffff;
   --color-bg-card: #ffffff;
   --color-bg-input: #ffffff;
@@ -12,8 +12,8 @@
 
   --color-text-primary: #0f172a;
   --color-text-secondary: #64748b;
-  --color-text-sidebar: #cbd5e1;
-  --color-text-sidebar-active: #ffffff;
+  --color-text-sidebar: #475569;
+  --color-text-sidebar-active: #0f172a;
   --color-text-header: #0f172a;
 
   --color-border: #e2e8f0;

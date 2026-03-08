@@ -45,6 +45,7 @@ export default function KpiCard({
           fontSize: "var(--font-size-sm)",
           color: trend === "up" ? "var(--color-success)" : "var(--color-error)",
           fontWeight: 500,
+          opacity: 0.4,
         }}
       >
         {trend === "up" ? "\u2191" : "\u2193"} {change}

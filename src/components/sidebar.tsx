@@ -18,7 +18,7 @@ export default function Sidebar() {
       data-testid="sidebar"
       style={{
         width: "var(--sidebar-width)",
-        minHeight: "100vh",
+        height: "100vh",
         backgroundColor: "var(--color-bg-sidebar)",
         padding: "var(--spacing-lg)",
         display: "flex",
@@ -27,6 +27,7 @@ export default function Sidebar() {
         position: "fixed",
         top: 0,
         left: 0,
+        overflow: "hidden",
       }}
     >
       <div
@@ -63,6 +64,48 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      <div style={{ marginTop: "auto" }}>
+        <div
+          style={{
+            borderTop: "1px solid var(--color-border)",
+            paddingTop: "var(--spacing-lg)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--spacing-sm)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "var(--font-size-xs)",
+              fontWeight: 600,
+              color: "var(--color-text-secondary)",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              marginBottom: "var(--spacing-xs)",
+            }}
+          >
+            Help & Support
+          </div>
+          <a href="#" style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-sidebar)", textDecoration: "none" }}>
+            Documentation
+          </a>
+          <a href="#" style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-sidebar)", textDecoration: "none" }}>
+            Contact Support
+          </a>
+          <a href="#" style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-sidebar)", textDecoration: "none" }}>
+            Keyboard Shortcuts
+          </a>
+          <div
+            style={{
+              marginTop: "var(--spacing-sm)",
+              fontSize: "var(--font-size-xs)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
+            v2.4.1
+          </div>
+        </div>
+      </div>
     </aside>
   );
 }

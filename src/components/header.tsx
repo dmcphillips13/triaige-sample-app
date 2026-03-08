@@ -26,7 +26,7 @@ export default function Header({ title }: { title: string }) {
         <span
           style={{
             fontSize: "var(--font-size-sm)",
-            color: "var(--color-text-secondary)",
+            color: "var(--color-text-header)",
           }}
         >
           admin@acme.com

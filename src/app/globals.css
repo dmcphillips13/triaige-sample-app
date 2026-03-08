@@ -34,7 +34,7 @@
   --spacing-xs: calc(var(--spacing-unit) * 1);
   --spacing-sm: calc(var(--spacing-unit) * 2);
   --spacing-md: calc(var(--spacing-unit) * 4);
-  --spacing-lg: calc(var(--spacing-unit) * 6);
+  --spacing-lg: calc(var(--spacing-unit) * 12);
   --spacing-xl: calc(var(--spacing-unit) * 8);
   --spacing-2xl: calc(var(--spacing-unit) * 12);
 

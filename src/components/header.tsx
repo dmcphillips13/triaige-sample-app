@@ -3,7 +3,7 @@ export default function Header({ title }: { title: string }) {
     <header
       data-testid="header"
       style={{
-        height: "var(--header-height)",
+        height: "96px",
         backgroundColor: "var(--color-bg-header)",
         borderBottom: "1px solid var(--color-border)",
         display: "flex",
@@ -12,16 +12,27 @@ export default function Header({ title }: { title: string }) {
         padding: "0 var(--spacing-xl)",
       }}
     >
-      <h1
-        style={{
-          fontSize: "var(--font-size-xl)",
-          fontWeight: 600,
-          margin: 0,
-          color: "var(--color-text-header)",
-        }}
-      >
-        {title}
-      </h1>
+      <div>
+        <h1
+          style={{
+            fontSize: "var(--font-size-xl)",
+            fontWeight: 600,
+            margin: 0,
+            color: "var(--color-text-header)",
+          }}
+        >
+          {title}
+        </h1>
+        <p
+          style={{
+            fontSize: "var(--font-size-xs)",
+            color: "var(--color-text-secondary)",
+            margin: "4px 0 0 0",
+          }}
+        >
+          Acme Dashboard — Internal Tools
+        </p>
+      </div>
       <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-md)" }}>
         <span
           style={{

@@ -105,15 +105,24 @@ PR_CONTEXT=$(jq -n \
     pr_number: (if $pr_number == null then null else ($pr_number | tonumber) end)
   }')
 
-# Build the full payload: enriched Playwright JSON + PR context
+# Determine triage mode from GitHub event type
+if [ "${GITHUB_EVENT_NAME:-}" = "pull_request" ]; then
+  TRIAGE_MODE="pre_merge"
+else
+  TRIAGE_MODE="post_merge"
+fi
+
+# Build the full payload: enriched Playwright JSON + PR context + triage mode
 # Write to file because base64 screenshots make the payload too large for shell args
 PAYLOAD_FILE="/tmp/triaige-payload.json"
 jq -n \
   --slurpfile report "$ENRICHED_FILE" \
   --argjson pr_context "$PR_CONTEXT" \
+  --arg triage_mode "$TRIAGE_MODE" \
   '{
     report_json: $report[0],
-    pr_context: $pr_context
+    pr_context: $pr_context,
+    triage_mode: $triage_mode
   }' > "$PAYLOAD_FILE"
 
 # POST to runner (use @file to avoid "argument list too long")

@@ -14,7 +14,7 @@ export default function KpiCard({
       style={{
         backgroundColor: "var(--color-bg-card)",
         border: "1px solid var(--color-border)",
-        borderTop: "3px solid var(--color-accent)",
+        borderTop: "4px solid var(--color-primary)",
         borderRadius: "var(--radius-lg)",
         padding: "var(--spacing-lg)",
         boxShadow: "var(--shadow-sm)",
@@ -46,7 +46,7 @@ export default function KpiCard({
           fontSize: "var(--font-size-sm)",
           color: trend === "up" ? "var(--color-success)" : "var(--color-error)",
           fontWeight: 500,
-          opacity: 0.4,
+          opacity: 0.6,
         }}
       >
         {trend === "up" ? "\u2191" : "\u2193"} {change}

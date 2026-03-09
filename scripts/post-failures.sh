@@ -11,6 +11,8 @@
 #   TRIAIGE_API_KEY     — Shared API key for runner auth
 #   GITHUB_REPOSITORY   — owner/repo (set automatically by GitHub Actions)
 #   GITHUB_SHA          — Commit SHA that triggered the workflow
+#   TRIAIGE_PR_NUMBER   — (optional) PR number override, useful for retriggers
+#                         where the commit message isn't a merge commit
 
 set -euo pipefail
 
@@ -60,17 +62,20 @@ with open('$ENRICHED_FILE', 'w') as f:
     json.dump(data, f)
 "
 
-# Extract PR context from the merge commit message
+# Extract PR context from the merge commit message or env var override
 COMMIT_MSG=$(git log -1 --format="%s" "$GITHUB_SHA" 2>/dev/null || echo "")
-PR_NUMBER=""
+PR_NUMBER="${TRIAIGE_PR_NUMBER:-}"
 PR_TITLE=""
 CHANGED_FILES="[]"
 COMMIT_MESSAGES="[]"
 
-# Try to extract PR number from merge commit
-if [[ "$COMMIT_MSG" =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
+# Try to extract PR number from merge commit if not provided via env var
+if [ -z "$PR_NUMBER" ] && [[ "$COMMIT_MSG" =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
   PR_NUMBER="${BASH_REMATCH[1]}"
-  echo "Detected PR #$PR_NUMBER"
+fi
+
+if [ -n "$PR_NUMBER" ]; then
+  echo "Using PR #$PR_NUMBER"
 
   # Fetch PR details using gh CLI
   if command -v gh &>/dev/null; then

@@ -106,7 +106,10 @@ PR_CONTEXT=$(jq -n \
   }')
 
 # Determine triage mode from GitHub event type
+# workflow_dispatch with a pr_number input is a PR retrigger, treat as pre_merge
 if [ "${GITHUB_EVENT_NAME:-}" = "pull_request" ]; then
+  TRIAGE_MODE="pre_merge"
+elif [ "${GITHUB_EVENT_NAME:-}" = "workflow_dispatch" ] && [ -n "${TRIAIGE_PR_NUMBER:-}" ]; then
   TRIAGE_MODE="pre_merge"
 else
   TRIAGE_MODE="post_merge"

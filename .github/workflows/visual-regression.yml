@@ -17,7 +17,18 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Resolve PR branch for workflow_dispatch
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != ''
+        id: pr-ref
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          REF=$(gh pr view ${{ github.event.inputs.pr_number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr-ref.outputs.ref || '' }}
 
       - uses: actions/setup-node@v4
         with:

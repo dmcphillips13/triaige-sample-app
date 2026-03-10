@@ -23,11 +23,11 @@ export default function ReportCard({
         backgroundColor: "var(--color-bg-card)",
         border: "1px solid var(--color-border)",
         borderRadius: "var(--radius-lg)",
-        padding: "var(--spacing-lg)",
+        padding: "0",
         boxShadow: "var(--shadow-sm)",
         display: "flex",
         flexDirection: "column",
-        gap: "var(--spacing-sm)",
+        gap: "0",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>

@@ -19,8 +19,8 @@
   --color-border: #e2e8f0;
   --color-border-input: #cbd5e1;
 
-  --color-accent: #f97316;
-  --color-accent-hover: #ea580c;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
 
   --color-success: #22c55e;
   --color-success-bg: #dcfce7;
@@ -55,8 +55,8 @@
   --font-size-base: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 20px;
-  --font-size-2xl: 24px;
-  --font-size-3xl: 30px;
+  --font-size-2xl: 28px;
+  --font-size-3xl: 36px;
 
   /* Layout */
   --sidebar-width: 240px;

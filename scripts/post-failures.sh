@@ -133,6 +133,7 @@ RESPONSE=$(curl -s -w "\n%{http_code}" \
   -X POST "${TRIAIGE_RUNNER_URL}/triage-run" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
+  -H "X-GitHub-Token: ${GH_TOKEN:-}" \
   -d @"$PAYLOAD_FILE")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -1)

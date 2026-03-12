@@ -19,7 +19,7 @@ export default function Sidebar() {
       style={{
         width: "var(--sidebar-width)",
         height: "100vh",
-        backgroundColor: "var(--color-bg-sidebar)",
+        backgroundColor: "#1e293b",
         padding: "var(--spacing-lg)",
         display: "flex",
         flexDirection: "column",
@@ -34,7 +34,7 @@ export default function Sidebar() {
         style={{
           fontSize: "var(--font-size-xl)",
           fontWeight: 700,
-          color: "var(--color-text-sidebar-active)",
+          color: "#f8fafc",
           marginBottom: "var(--spacing-xl)",
           padding: "var(--spacing-sm)",
         }}
@@ -52,7 +52,7 @@ export default function Sidebar() {
                 display: "block",
                 padding: "var(--spacing-sm) var(--spacing-md)",
                 borderRadius: "var(--radius-md)",
-                color: isActive ? "var(--color-text-sidebar-active)" : "var(--color-text-sidebar)",
+                color: isActive ? "#ffffff" : "#94a3b8",
                 backgroundColor: isActive ? "var(--color-accent)" : "transparent",
                 textDecoration: "none",
                 fontSize: "var(--font-size-sm)",

@@ -28,7 +28,7 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
-                borderLeft: "3px solid var(--color-accent)",
+                borderLeft: "3px solid var(--color-success)",
                 paddingLeft: "var(--spacing-sm)",
               }}
             >
@@ -53,7 +53,7 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
-                borderLeft: "3px solid var(--color-accent)",
+                borderLeft: "3px solid var(--color-success)",
                 paddingLeft: "var(--spacing-sm)",
               }}
             >
@@ -74,7 +74,7 @@ export default function SettingsPage() {
                 fontWeight: 600,
                 margin: "0 0 var(--spacing-md) 0",
                 color: "var(--color-text-primary)",
-                borderLeft: "3px solid var(--color-accent)",
+                borderLeft: "3px solid var(--color-success)",
                 paddingLeft: "var(--spacing-sm)",
               }}
             >
@@ -94,7 +94,7 @@ export default function SettingsPage() {
               color: "white",
               border: "none",
               borderRadius: "var(--radius-md)",
-              fontSize: "var(--font-size-base)",
+              fontSize: "var(--font-size-lg)",
               fontWeight: 600,
               cursor: "pointer",
               alignSelf: "flex-start",

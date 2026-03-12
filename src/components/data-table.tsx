@@ -50,7 +50,7 @@ export default function DataTable({ rows }: { rows: Row[] }) {
             ))}
           </tr>
         </thead>
-        <tbody style={{ maxHeight: "120px", overflow: "hidden", display: "block", visibility: "hidden" }}>
+        <tbody>
           {rows.map((row) => (
             <tr
               key={row.id}

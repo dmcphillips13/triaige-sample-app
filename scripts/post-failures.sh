@@ -38,10 +38,19 @@ if [ "$UNEXPECTED" -eq 0 ]; then
     fi
   fi
 
+  # For push-to-main events, extract PR number from merge commit message
+  CLEAN_EVENT="${GITHUB_EVENT_NAME:-}"
+  if [ "$CLEAN_EVENT" = "push" ] && [ -z "$CLEAN_PR_NUMBER" ]; then
+    MERGE_MSG=$(git log -1 --format="%s" "$GITHUB_SHA" 2>/dev/null || echo "")
+    if [[ "$MERGE_MSG" =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
+      CLEAN_PR_NUMBER="${BASH_REMATCH[1]}"
+    fi
+  fi
+
   curl -s -X POST "${TRIAIGE_RUNNER_URL}/report-clean" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
-    -d "{\"repo\": \"${GITHUB_REPOSITORY}\", \"head_sha\": \"${CLEAN_HEAD_SHA}\"}" || true
+    -d "{\"repo\": \"${GITHUB_REPOSITORY}\", \"head_sha\": \"${CLEAN_HEAD_SHA}\", \"pr_number\": ${CLEAN_PR_NUMBER:-null}, \"event\": \"${CLEAN_EVENT}\"}" || true
 
   exit 0
 fi

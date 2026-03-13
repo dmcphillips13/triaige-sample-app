@@ -90,8 +90,16 @@ if [ -z "$PR_TITLE" ]; then
   PR_TITLE="$COMMIT_MSG"
 fi
 
-# Get the PR head SHA for merge gate check runs
+# Get the PR head SHA for merge gate check runs.
+# For workflow_dispatch retriggers, TRIAIGE_HEAD_SHA is the main branch SHA,
+# so resolve the actual PR head SHA from the PR number.
 HEAD_SHA="${TRIAIGE_HEAD_SHA:-$GITHUB_SHA}"
+if [ -n "$PR_NUMBER" ] && command -v gh &>/dev/null; then
+  PR_HEAD_SHA=$(gh pr view "$PR_NUMBER" --json headRefOid --jq '.headRefOid' 2>/dev/null || echo "")
+  if [ -n "$PR_HEAD_SHA" ]; then
+    HEAD_SHA="$PR_HEAD_SHA"
+  fi
+fi
 
 # Build the pr_context JSON
 PR_CONTEXT=$(jq -n \

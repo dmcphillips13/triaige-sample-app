@@ -26,7 +26,23 @@ fi
 # Check if there are any failures
 UNEXPECTED=$(jq '.stats.unexpected // 0' "$RESULTS_FILE")
 if [ "$UNEXPECTED" -eq 0 ]; then
-  echo "All tests passed — nothing to report"
+  echo "All tests passed — reporting clean to Triaige"
+
+  # Resolve the PR head SHA for the passing check run
+  CLEAN_HEAD_SHA="${TRIAIGE_HEAD_SHA:-$GITHUB_SHA}"
+  CLEAN_PR_NUMBER="${TRIAIGE_PR_NUMBER:-}"
+  if [ -n "$CLEAN_PR_NUMBER" ] && command -v gh &>/dev/null; then
+    PR_SHA=$(gh pr view "$CLEAN_PR_NUMBER" --json headRefOid --jq '.headRefOid' 2>/dev/null || echo "")
+    if [ -n "$PR_SHA" ]; then
+      CLEAN_HEAD_SHA="$PR_SHA"
+    fi
+  fi
+
+  curl -s -X POST "${TRIAIGE_RUNNER_URL}/report-clean" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
+    -d "{\"repo\": \"${GITHUB_REPOSITORY}\", \"head_sha\": \"${CLEAN_HEAD_SHA}\"}" || true
+
   exit 0
 fi
 

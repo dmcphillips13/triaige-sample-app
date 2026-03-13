@@ -90,6 +90,9 @@ if [ -z "$PR_TITLE" ]; then
   PR_TITLE="$COMMIT_MSG"
 fi
 
+# Get the PR head SHA for merge gate check runs
+HEAD_SHA="${TRIAIGE_HEAD_SHA:-$GITHUB_SHA}"
+
 # Build the pr_context JSON
 PR_CONTEXT=$(jq -n \
   --arg title "$PR_TITLE" \
@@ -97,12 +100,14 @@ PR_CONTEXT=$(jq -n \
   --argjson commit_messages "$COMMIT_MESSAGES" \
   --arg repo "$GITHUB_REPOSITORY" \
   --argjson pr_number "${PR_NUMBER:-null}" \
+  --arg head_sha "$HEAD_SHA" \
   '{
     title: $title,
     changed_files: $changed_files,
     commit_messages: $commit_messages,
     repo: $repo,
-    pr_number: (if $pr_number == null then null else ($pr_number | tonumber) end)
+    pr_number: (if $pr_number == null then null else ($pr_number | tonumber) end),
+    head_sha: $head_sha
   }')
 
 # Determine triage mode from GitHub event type

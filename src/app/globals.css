@@ -6,7 +6,7 @@
   --color-bg-secondary: #f8f9fa;
   --color-bg-sidebar: #f8fafc;
   --color-bg-header: #1e293b;
-  --color-bg-card: #f0fdf4;
+  --color-bg-card: #f0f9ff;
   --color-bg-input: #ffffff;
   --color-bg-hover: #f1f5f9;
 
@@ -39,8 +39,8 @@
   --spacing-2xl: calc(var(--spacing-unit) * 12);
 
   /* Border radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
   --radius-lg: 24px;
   --radius-full: 9999px;
 

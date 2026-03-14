@@ -4,7 +4,7 @@
   /* Colors */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8f9fa;
-  --color-bg-sidebar: #f8fafc;
+  --color-bg-sidebar: #eef2ff;
   --color-bg-header: #1e293b;
   --color-bg-card: #f0f9ff;
   --color-bg-input: #ffffff;
@@ -55,8 +55,8 @@
   --font-size-base: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 20px;
-  --font-size-2xl: 24px;
-  --font-size-3xl: 32px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 30px;
 
   /* Layout */
   --sidebar-width: 240px;

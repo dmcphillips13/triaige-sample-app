@@ -55,6 +55,25 @@ if [ "$UNEXPECTED" -eq 0 ]; then
   exit 0
 fi
 
+# For push-to-main events (merges), don't create triage runs — just clean up.
+# Pre-merge runs are auto-closed via /report-clean.
+if [ "${GITHUB_EVENT_NAME:-}" = "push" ]; then
+  echo "Push to main with $UNEXPECTED failure(s) — closing pre-merge runs only"
+
+  MERGE_MSG=$(git log -1 --format="%s" "$GITHUB_SHA" 2>/dev/null || echo "")
+  PUSH_PR_NUMBER=""
+  if [[ "$MERGE_MSG" =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
+    PUSH_PR_NUMBER="${BASH_REMATCH[1]}"
+  fi
+
+  curl -s -X POST "${TRIAIGE_RUNNER_URL}/report-clean" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
+    -d "{\"repo\": \"${GITHUB_REPOSITORY}\", \"head_sha\": \"${GITHUB_SHA}\", \"pr_number\": ${PUSH_PR_NUMBER:-null}, \"event\": \"push\"}" || true
+
+  exit 0
+fi
+
 echo "Found $UNEXPECTED unexpected test failure(s), posting to Triaige..."
 
 # Embed screenshot files as base64 into attachment bodies.

@@ -11,9 +11,37 @@ on:
         required: false
 
 jobs:
+  # Lightweight job for push-to-main: just close pre-merge runs, no tests needed
+  close-pr-runs:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Close pre-merge runs
+        env:
+          TRIAIGE_RUNNER_URL: ${{ secrets.TRIAIGE_RUNNER_URL }}
+          TRIAIGE_API_KEY: ${{ secrets.TRIAIGE_API_KEY }}
+        run: |
+          # Extract PR number from merge commit message
+          MERGE_MSG=$(git log -1 --format="%s" HEAD)
+          PR_NUMBER=""
+          if [[ "$MERGE_MSG" =~ Merge\ pull\ request\ \#([0-9]+) ]]; then
+            PR_NUMBER="${BASH_REMATCH[1]}"
+          fi
+
+          echo "Closing pre-merge runs for PR #${PR_NUMBER:-unknown}"
+          curl -s -X POST "${TRIAIGE_RUNNER_URL}/report-clean" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${TRIAIGE_API_KEY}" \
+            -d "{\"repo\": \"${GITHUB_REPOSITORY}\", \"head_sha\": \"${GITHUB_SHA}\", \"pr_number\": ${PR_NUMBER:-null}, \"event\": \"push\"}" || true
+
+  # Full visual regression test job for PRs and retriggers
   visual-tests:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'triaige/update-baselines')"
+    if: github.event_name != 'push' && !contains(github.event.head_commit.message, 'triaige/update-baselines')
     permissions:
       contents: write
       pull-requests: write

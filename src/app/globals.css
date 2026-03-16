@@ -19,7 +19,7 @@
   --color-border: #e2e8f0;
   --color-border-input: #cbd5e1;
 
-  --color-accent: #3b82f6;
+  --color-accent: #8b5cf6;
   --color-accent-hover: #2563eb;
 
   --color-success: #22c55e;
@@ -40,7 +40,7 @@
 
   /* Border radius */
   --radius-sm: 4px;
-  --radius-md: 8px;
+  --radius-md: 12px;
   --radius-lg: 16px;
   --radius-full: 9999px;
 

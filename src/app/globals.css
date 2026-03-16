@@ -5,8 +5,8 @@
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8f9fa;
   --color-bg-sidebar: #fef3c7;
-  --color-bg-header: #1e3a5f;
-  --color-bg-card: #e0f2fe;
+  --color-bg-header: #312e81;
+  --color-bg-card: #fef9c3;
   --color-bg-input: #ffffff;
   --color-bg-hover: #f1f5f9;
 
@@ -55,7 +55,7 @@
   --font-size-base: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 20px;
-  --font-size-2xl: 32px;
+  --font-size-2xl: 36px;
   --font-size-3xl: 38px;
 
   /* Layout */

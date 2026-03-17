@@ -30,7 +30,7 @@ export default function Header({ title }: { title: string }) {
             margin: "4px 0 0 0",
           }}
         >
-          Acme Dashboard — Internal Tools
+          Acme Dashboard — Internal Tooling
         </p>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-md)" }}>

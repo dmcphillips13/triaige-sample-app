@@ -7,9 +7,11 @@ export function TextField({
   defaultValue?: string;
   placeholder?: string;
 }) {
+  const id = label.toLowerCase().replace(/\s+/g, "-");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-xs)" }}>
       <label
+        htmlFor={id}
         style={{
           fontSize: "var(--font-size-sm)",
           fontWeight: 500,
@@ -19,6 +21,7 @@ export function TextField({
         {label}
       </label>
       <input
+        id={id}
         type="text"
         defaultValue={defaultValue}
         placeholder={placeholder}
@@ -45,9 +48,11 @@ export function SelectField({
   options: string[];
   defaultValue?: string;
 }) {
+  const id = label.toLowerCase().replace(/\s+/g, "-");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-xs)" }}>
       <label
+        htmlFor={id}
         style={{
           fontSize: "var(--font-size-sm)",
           fontWeight: 500,
@@ -57,6 +62,7 @@ export function SelectField({
         {label}
       </label>
       <select
+        id={id}
         defaultValue={defaultValue}
         style={{
           padding: "var(--spacing-sm) var(--spacing-md)",
@@ -109,9 +115,11 @@ export function TextAreaField({
   defaultValue?: string;
   placeholder?: string;
 }) {
+  const id = label.toLowerCase().replace(/\s+/g, "-");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-xs)" }}>
       <label
+        htmlFor={id}
         style={{
           fontSize: "var(--font-size-sm)",
           fontWeight: 500,
@@ -121,6 +129,7 @@ export function TextAreaField({
         {label}
       </label>
       <textarea
+        id={id}
         defaultValue={defaultValue}
         placeholder={placeholder}
         rows={4}

@@ -1,7 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/visual",
+  testDir: "./tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
@@ -10,6 +10,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     viewport: { width: 1280, height: 720 },
+    screenshot: "only-on-failure",
   },
   projects: [
     {

@@ -13,6 +13,6 @@ for (const { link, heading } of pages) {
   }) => {
     await page.goto("/overview");
     await page.getByRole("link", { name: link }).click();
-    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(page.getByRole("heading", { name: heading, exact: true })).toBeVisible();
   });
 }

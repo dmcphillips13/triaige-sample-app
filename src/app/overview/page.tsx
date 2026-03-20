@@ -11,7 +11,7 @@ const kpis = [
 export default function OverviewPage() {
   return (
     <>
-      <Header title="Overview" />
+      <Header title="Dashboard Overview" />
       <div style={{ padding: "var(--spacing-xl)" }}>
         <div
           style={{
